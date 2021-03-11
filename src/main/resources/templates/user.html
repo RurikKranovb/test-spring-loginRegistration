@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+        <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+</nav>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<br>
+<br>
+<div class="container">
+    <div>
+        <h2>Welcome <span sec:authentication="name"></span></h2>
+    </div>
+    <form th:action="@{/user}" method="post" th:object="${user}">
+
+        <div class="form-group">
+
+            <label class="control-label" for="firstName"> First Name </label>
+            <input id="firstName" class="form-control" th:field="*{firstName}"
+                   required autofocus="autofocus" />
+
+            <div th:if="${#fields.hasErrors('firstName')}">
+                <div class="alert alert-info">Required</div>
+            </div>
+        </div>
+
+        <div class="form-group" >
+
+            <label class="control-label" for="lastName"> Last Name </label> <input
+                id="lastName" class="form-control" th:field="*{lastName}"
+                required autofocus="autofocus" />
+            <div th:if="${#fields.hasErrors('lastName')}">
+                <div class="alert alert-info">Required</div>
+            </div>
+        </div>
+
+        <div class="form-group" >
+
+            <label class="control-label" for="email"> Email </label> <input
+                id="email" class="form-control" th:field="*{email}" required
+                autofocus="autofocus" />
+            <div th:if="${#fields.hasErrors('email')}">
+                <div class="alert alert-info">IsValid format || Duplicate</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="password"> Password </label> <input
+                id="password" class="form-control" type="password"
+                th:field="*{password}" required autofocus="autofocus" />
+        </div>
+
+        <div class="form-group" >
+            <label class="control-label" for="birthDate"> Birth Date </label> <input
+                id="birthDate" class="form-control" type="date"
+                th:field="*{birthDate}" required autofocus="autofocus" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update"/>
+        </div>
+    </form>
+</div>
+
+<!--<script th:src="@{/webjars/bootstrap/5.0.0-beta1/css/bootstrap.css}" />-->
+<!--<script th:src="@{/webjars/bootstrap/5.0.0-beta1/js/bootstrap.js}" />-->
+<!--<script th:src="@{/webjars/jquery/3.5.1/jquery.js}" />-->
+</body>
+</html>
